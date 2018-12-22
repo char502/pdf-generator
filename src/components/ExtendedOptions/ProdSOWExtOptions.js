@@ -2,11 +2,13 @@ import React from "react";
 
 const ProdSOWExtOptions = ({
   title,
+  name,
+  type,
   onExtendedAreaChange,
   value,
   placeholder
 }) => {
-  // console.log(props);
+  console.log(title, onExtendedAreaChange, value, placeholder);
 
   return (
     <div className="form-group">
@@ -14,9 +16,10 @@ const ProdSOWExtOptions = ({
       <label className="form-label">{title}</label>
       <textarea
         className="form-control"
+        type={type}
         /* rows={rows} */
         /* style={resize ? null : { resize: "none" }} */
-        /* name={name} */
+        name={name}
         value={value}
         onChange={onExtendedAreaChange}
         placeholder={placeholder}
@@ -25,8 +28,8 @@ const ProdSOWExtOptions = ({
   );
 };
 
-export default ProdSOWExtOptions;
-
 {
   /* <tr onClick={() => this.props.store.changeData(row.original)}></tr> */
 }
+
+export default ProdSOWExtOptions;

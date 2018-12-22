@@ -31,6 +31,7 @@ class PdfGenFormContainer extends React.Component {
         <ProdSOWExtOptions
           title={"Extended Customer Info"}
           name={"Extended Customer Info"}
+          type={"text"}
           placeholder={"Extended Text Area"}
           value={this.state.prodSowTestInformation}
           onExtendedAreaChange={
@@ -56,7 +57,7 @@ class PdfGenFormContainer extends React.Component {
     this.handleSOWTypeCheckbox = this.handleSOWTypeCheckbox.bind(this);
     // this.handleSOWExtOptions = this.handleSOWExtOptions.bind.this;
     // Extended Sow Type methods
-    // this.handleExtendedTextArea = this.handleExtendedTextArea.bind(this);
+    this.handleExtendedTextArea = this.handleExtendedTextArea.bind(this);
   }
   // === SOW Type group ===
   componentDidMount = () => {
@@ -180,6 +181,8 @@ class PdfGenFormContainer extends React.Component {
   }
 
   handleExtendedTextArea(e) {
+    // e.preventDefault();
+
     console.log(e.target.value);
     this.setState(
       {
@@ -234,8 +237,8 @@ class PdfGenFormContainer extends React.Component {
             //Props for extended components
             componentList={this.componentList}
             /* {...propsForProdSOWExtOptions} */
-            /* value={this.state.prodSowTestInformation}
-            onExtendedAreaChange={this.handleExtendedTextArea} */
+            value={this.state.prodSowTestInformation}
+            onExtendedAreaChange={this.handleExtendedTextArea}
           />
           <div>
             <input
