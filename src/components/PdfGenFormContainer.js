@@ -1,16 +1,14 @@
 import React from "react";
 import ServiceRegionRadioBtns from "./ServiceRegionRadioBtns";
 import CustomerInformation from "./CustomerInformation";
-// import ProductSow from "./SOW_Type/ProductSow";
-// import TeraDataSow from "./SOW_Type/TeraDataSOW";
-// import CustomSow from "./SOW_Type/CustomSOW";
 import SowType from "./SOWType";
 import ProdSOWExtOptions from "./ExtendedOptions/ProdSOWExtOptions";
+import TeradataExtOptions from "./ExtendedOptions/TeradataExtOptions";
+import CustomProfExtOptions from "./ExtendedOptions/CustomProfExtOptions";
 
 class PdfGenFormContainer extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       id: null,
       serviceRegion: ["EMEA", "APAC", "NA & LATAM"],
@@ -22,16 +20,26 @@ class PdfGenFormContainer extends React.Component {
         "Custom Professional Services SOW"
       ],
       sowTypeSelectedOption: [],
-      // componentList: {
-      //   ProductSow: "component for productSow",
-      //   "Teradata Customer SOW": "component for 2nd option", "Custom Professional Services SOW": "component for 3rd option"
-      // },
       prodSowTestInformation: "",
       product_families: [],
       productFamilyNew: {
         product_family: ""
       }
     };
+    this.componentList = {
+      ProductSow: (
+        <ProdSOWExtOptions
+          title={"Extended Customer Info"}
+          name={"Extended Customer Info"}
+          placeholder={"Extended Text Area"}
+          value={this.state.prodSowTestInformation}
+          onExtendedAreaChange={this.handleExtendedTextArea}
+        />
+      ),
+      "Teradata Customer SOW": <TeradataExtOptions />,
+      "Custom Professional Services SOW": <CustomProfExtOptions />
+    };
+
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
     this.handleTextArea = this.handleTextArea.bind(this);
@@ -42,7 +50,9 @@ class PdfGenFormContainer extends React.Component {
     // SOW Type Methods
     this.handleRadioBtns = this.handleRadioBtns.bind(this);
     this.handleSOWTypeCheckbox = this.handleSOWTypeCheckbox.bind(this);
-    this.handleSOWExtOptions = this.handleSOWExtOptions.bind.this;
+    // this.handleSOWExtOptions = this.handleSOWExtOptions.bind.this;
+    // Extended Sow Type methods
+    this.handleExtendedTextArea = this.handleExtendedTextArea.bind(this);
   }
   // === SOW Type group ===
   componentDidMount = () => {
@@ -165,7 +175,8 @@ class PdfGenFormContainer extends React.Component {
     );
   }
 
-  handleSOWExtOptions(e) {
+  handleExtendedTextArea(e) {
+    console.log(e.target.value);
     this.setState(
       {
         prodSowTestInformation: e.target.value
@@ -182,6 +193,11 @@ class PdfGenFormContainer extends React.Component {
     const { product_families, productFamilyNew } = this.state;
 
     // console.log(this.props);
+
+    // let propsForProdSOWExtOptions = {
+    //   value: "this.state.prodSowTestInformation",
+    //   onExtendedAreaChange: "this.handleExtendedTextArea"
+    // };
 
     return (
       <div>
@@ -211,27 +227,12 @@ class PdfGenFormContainer extends React.Component {
             controlFunc={this.handleSOWTypeCheckbox}
             options={this.state.sowType}
             selectedOptions={this.state.sowTypeSelectedOption}
+            //Props for extended components
+            componentList={this.componentList}
+            /* {...propsForProdSOWExtOptions} */
+            /* value={this.state.prodSowTestInformation}
+            onExtendedAreaChange={this.handleExtendedTextArea} */
           />
-          {/* <ProdSOWExtOptions
-            title={"ProdSOWExtOptions"}
-            rows={10}
-            resize={false}
-            name={"ProdSOWExtOptions"}
-            value={this.state.prodSowTestInformation}
-            handleChange={this.handleSOWExtOptions}
-            placeholder={"ProdSOWExtOptions Here"}
-          /> */}
-          {/* <SowType
-            title={"SOW Type"}
-            setName={"SOW Type"}
-            subtitle={"What type of SOW do you want to generate?"}
-            type={"checkbox"}
-            value={this.state.sowType[i].name}
-            controlFunc={this.handleSOWTypeCheckbox}
-            options={this.state.sowType}
-            selectedOptions={this.state.sowTypeSelectedOption}
-            checked={this.state.SowType.checked}
-          /> */}
           <div>
             <input
               type="submit"

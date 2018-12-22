@@ -1,16 +1,11 @@
 import React from "react";
-import ProdSOWExtOptions from "./ExtendedOptions/ProdSOWExtOptions";
-import TeradataExtOptions from "./ExtendedOptions/TeradataExtOptions";
-import CustomProfExtOptions from "./ExtendedOptions/CustomProfExtOptions";
+// import ProdSOWExtOptions from "./ExtendedOptions/ProdSOWExtOptions";
+// import TeradataExtOptions from "./ExtendedOptions/TeradataExtOptions";
+// import CustomProfExtOptions from "./ExtendedOptions/CustomProfExtOptions";
 
 class SOWType extends React.Component {
-  componentList = {
-    ProductSow: <ProdSOWExtOptions type={this.props} />,
-    "Teradata Customer SOW": <TeradataExtOptions />,
-    "Custom Professional Services SOW": <CustomProfExtOptions />
-  };
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <div className="form-group">
         <label /*htmlFor={this.props.name} */ className="form-label">
@@ -31,7 +26,7 @@ class SOWType extends React.Component {
                 />
                 {option}
                 {this.props.selectedOptions.indexOf(option) > -1 ? (
-                  <h5>{this.componentList[option]}</h5>
+                  <h5>{this.props.componentList[option]}</h5>
                 ) : (
                   " "
                 )}
