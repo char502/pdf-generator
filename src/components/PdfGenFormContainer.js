@@ -33,7 +33,11 @@ class PdfGenFormContainer extends React.Component {
           name={"Extended Customer Info"}
           placeholder={"Extended Text Area"}
           value={this.state.prodSowTestInformation}
-          onExtendedAreaChange={this.handleExtendedTextArea}
+          onExtendedAreaChange={
+            (this.handleExtendedTextArea = this.handleExtendedTextArea.bind(
+              this
+            ))
+          }
         />
       ),
       "Teradata Customer SOW": <TeradataExtOptions />,
@@ -52,7 +56,7 @@ class PdfGenFormContainer extends React.Component {
     this.handleSOWTypeCheckbox = this.handleSOWTypeCheckbox.bind(this);
     // this.handleSOWExtOptions = this.handleSOWExtOptions.bind.this;
     // Extended Sow Type methods
-    this.handleExtendedTextArea = this.handleExtendedTextArea.bind(this);
+    // this.handleExtendedTextArea = this.handleExtendedTextArea.bind(this);
   }
   // === SOW Type group ===
   componentDidMount = () => {

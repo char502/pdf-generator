@@ -5,7 +5,7 @@ import React from "react";
 
 class SOWType extends React.Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="form-group">
         <label /*htmlFor={this.props.name} */ className="form-label">
@@ -30,6 +30,7 @@ class SOWType extends React.Component {
                 ) : (
                   " "
                 )}
+                {/* <ProdSOWExtOptions {...this.props} /> */}
               </label>
             );
           })}
