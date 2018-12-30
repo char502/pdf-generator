@@ -1,13 +1,10 @@
 import React from "react";
 import ServiceRegionRadioBtns from "./ServiceRegionRadioBtns";
 import CustomerInformation from "./CustomerInformation";
-// import ProductSow from "./SOW_Type/ProductSow";
-// import TeraDataSow from "./SOW_Type/TeraDataSOW";
-// import CustomSow from "./SOW_Type/CustomSOW";
+import SowType from "./SOWType";
 import ProdSOWExtOptions from "./ExtendedOptions/ProdSOWExtOptions";
 import TeradataExtOptions from "./ExtendedOptions/TeradataExtOptions";
 import CustomProfExtOptions from "./ExtendedOptions/CustomProfExtOptions";
-import SowType from "./SOWType";
 
 class PdfGenFormContainer extends React.Component {
   constructor(props) {
@@ -25,7 +22,6 @@ class PdfGenFormContainer extends React.Component {
       sowTypeSelectedOption: [],
       prodSowTestInformation: "",
       customProfServicesInformation: "",
-      checkboxes: [],
       product_families: [],
       productFamilyNew: {
         product_family: ""
@@ -39,7 +35,7 @@ class PdfGenFormContainer extends React.Component {
           type={"text"}
           placeholder={"Extended Text Area"}
           value={this.state.prodSowTestInformation}
-          handleExtText={this.handleExtendedTextArea}
+          handleExtText={this.handleExtText}
         />
       ),
       "Teradata Customer SOW": <TeradataExtOptions />,
@@ -50,10 +46,11 @@ class PdfGenFormContainer extends React.Component {
           type={"text"}
           placeholder={"Custom Options Text Area"}
           value={this.state.customProfServicesInformation}
-          handleCustProf={this.handleCustomProfTextArea}
+          handleCustProf={this.handleCustProf}
         />
       )
     };
+
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
     this.handleTextArea = this.handleTextArea.bind(this);
@@ -64,6 +61,7 @@ class PdfGenFormContainer extends React.Component {
     // SOW Type Methods
     this.handleRadioBtns = this.handleRadioBtns.bind(this);
     this.handleSOWTypeCheckbox = this.handleSOWTypeCheckbox.bind(this);
+    // this.handleSOWExtOptions = this.handleSOWExtOptions.bind.this;
     // Extended Sow Type methods
     // this.handleExtendedTextArea = this.handleExtendedTextArea.bind(this);
   }
@@ -108,8 +106,7 @@ class PdfGenFormContainer extends React.Component {
       areaSelectedOption: this.state.areaSelectedOption,
       customerInformation: this.state.customerInformation,
       sowTypeSelectedOption: this.state.sowTypeSelectedOption,
-      prodSowTestInformation: this.state.prodSowTestInformation,
-      customProfServicesInformation: this.state.customProfServicesInformation
+      prodSowTestInformation: this.state.prodSowTestInformation
     };
     // console.log("handleFormSubmit Clicked");
     console.log(formPayload);
@@ -121,14 +118,58 @@ class PdfGenFormContainer extends React.Component {
     this.setState({
       areaSelectedOption: [],
       customerInformation: "",
-      sowTypeSelectedOption: []
+      sowTypeSelectedOption: [],
+      prodSowTestInformation: ""
     });
+  }
+
+  handleRadioBtns(e) {
+    this.setState(
+      {
+        areaSelectedOption: [e.target.value]
+      },
+      () => console.log("Region", this.state.areaSelectedOption)
+    );
+  }
+
+  // handleSOWTypeCheckbox(item) {
+  //   const isChecked = item.target.checked;
+  //   const value = item.target.value;
+
+  //   this.setState(prevState => ({
+  //     sowType: prevState.sowType.map(sType =>
+  //       sType.name === value ? { ...sType, checked: isChecked } : sType
+  //     )
+  //   }));
+
+  //   if (isChecked) {
+  //     this.setState(prevState => ({
+  //       sowTypeSelectedOption: [...prevState.sowTypeSelectedOption, value]
+  //     }));
+  //   } else {
+  //     const newSOW = this.state.sowTypeSelectedOption.filter(
+  //       sType => sType !== value
+  //     );
+  //     this.setState({ sowTypeSelectedOption: newSOW });
+  //   }
+  // }
+
+  handleTextArea(e) {
+    this.setState(
+      {
+        customerInformation: e.target.value
+      },
+      () => console.log("Customer Information:", this.state.customerInformation)
+    );
   }
 
   handleSOWTypeCheckbox(e) {
     const newSelection = e.target.value;
+    // console.log(e);
+    // console.log(newSelection);
     let newSelectionArray;
-
+    // console.log(newSelection);
+    // console.log(e.target.checked);
     if (this.state.sowTypeSelectedOption.indexOf(newSelection) > -1) {
       newSelectionArray = this.state.sowTypeSelectedOption.filter(
         item => item !== newSelection
@@ -145,17 +186,8 @@ class PdfGenFormContainer extends React.Component {
     );
   }
 
-  handleTextArea(e) {
-    this.setState(
-      {
-        customerInformation: e.target.value
-      },
-      () => console.log("Customer Information:", this.state.customerInformation)
-    );
-  }
-
   handleExtendedTextArea = function(e) {
-    console.log("This happens?", e.target.value);
+    console.log("This happens", e.target.value);
     this.setState(
       {
         prodSowTestInformation: e.target.value
@@ -178,15 +210,6 @@ class PdfGenFormContainer extends React.Component {
     );
   }.bind(this);
 
-  handleRadioBtns(e) {
-    this.setState(
-      {
-        areaSelectedOption: [e.target.value]
-      },
-      () => console.log("Region", this.state.areaSelectedOption)
-    );
-  }
-
   renderProdFamilies = ({ idprod_family, product_family }) => (
     <div key={idprod_family}>{product_family}</div>
   );
@@ -195,6 +218,11 @@ class PdfGenFormContainer extends React.Component {
     const { product_families, productFamilyNew } = this.state;
 
     // console.log(this.props);
+
+    // let propsForProdSOWExtOptions = {
+    //   value: "this.state.prodSowTestInformation",
+    //   onExtendedAreaChange: "this.handleExtendedTextArea"
+    // };
 
     return (
       <div>

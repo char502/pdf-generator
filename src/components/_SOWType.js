@@ -1,11 +1,14 @@
 import React from "react";
+// import ProdSOWExtOptions from "./ExtendedOptions/ProdSOWExtOptions";
+// import TeradataExtOptions from "./ExtendedOptions/TeradataExtOptions";
+// import CustomProfExtOptions from "./ExtendedOptions/CustomProfExtOptions";
 
 class SOWType extends React.Component {
   render() {
-    console.log(this.props); //you should have access to componentList
+    console.log(this.props);
     return (
       <div className="form-group">
-        <label htmlFor={this.props.name} className="form-label">
+        <label /*htmlFor={this.props.name} */ className="form-label">
           {this.props.title}
           <h6>{this.props.subtitle}</h6>
         </label>
@@ -27,6 +30,13 @@ class SOWType extends React.Component {
                 ) : (
                   " "
                 )}
+                {/* {this.props.ProdSOWExtOptions ? (
+                  <ProdSOWExtOptions
+                    value={this.props.value}
+                    onExtendedAreaChange={this.props.onExtendedAreaChange}
+                  />
+                ) : null} */}
+                {/* <ProdSOWExtOptions {...this.props} /> */}
               </label>
             );
           })}
