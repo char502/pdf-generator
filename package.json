@@ -23,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,5 +38,6 @@
   "devDependencies": {
     "eslint-plugin-prettier": "^3.0.0",
     "prettier": "^1.15.2"
-  }
+  },
+  "heroku-run-build-script": true
 }
